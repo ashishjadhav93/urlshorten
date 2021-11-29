@@ -12,7 +12,7 @@ document.querySelector(".shorten-btn").addEventListener("click", (event) => {
 });
 const getShortenUrl = async (shortenUrlInput) => {
   try {
-    const apiUrl = BASE_URL + SHORTEN_ENDPOINT + shorten_url;
+    const apiUrl = BASE_URL + SHORTEN_ENDPOINT + shortenUrlInput;
     const response = await axios.get(apiUrl);
     const { ok, result } = await response.data;
     printShortenTable(apiUrl, result);
