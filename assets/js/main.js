@@ -39,6 +39,7 @@ const shortenCopy = (copyUrl) => {
   navigator.clipboard.writeText(copyUrl);
 };
 const renderAvailableUrl = () => {
+  document.getElementById("shorten-rul").innerHTML = "";
   let urls = window.localStorage.getItem("urls");
   if (urls) {
     urls = JSON.parse(urls);
@@ -50,22 +51,27 @@ const renderAvailableUrl = () => {
     const paraURL = document.createElement("p");
     const paraShortURL = document.createElement("p");
     const div = document.createElement("div");
-    const ancher = document.createElement("a");
-    const ancherSpan = document.createElement("span");
+    const ancherHref = document.createElement("a");
+    const ctaAncherSpan = document.createElement("span");
     li.className = "flex justify-center align-center";
+    const ctaAncher = document.createElement("a");
     paraURL.innerHTML = elem.apiUrl;
-    paraShortURL.innerHTML = elem.result;
-    ancher.className = "cta shorten-copy";
-    ancher.appendChild(ancherSpan);
-    ancherSpan.innerHTML = "Copy";
-    ancher.addEventListener("click", () => {
+    ancherHref.setAttribute("href", elem.result);
+    ancherHref.innerHTML = elem.result;
+    paraURL.appendChild(ancherHref);
+    paraShortURL.appendChild(ancherHref);
+    ctaAncher.className = "cta shorten-copy";
+    ctaAncher.appendChild(ctaAncherSpan);
+    ctaAncherSpan.innerHTML = "Copy";
+    ctaAncher.addEventListener("click", () => {
       shortenCopy(elem.result);
-      ancherSpan.innerHTML = "Copyed!";
-      ancher.className = "cta shorten-copy shorten-Copied";
+      ctaAncherSpan.innerHTML = "Copied!";
+      ctaAncher.className = "cta shorten-copy shorten-Copied";
     });
+
     div.className = "shorten-text flex justify-center align-center";
     div.appendChild(paraShortURL);
-    div.appendChild(ancher);
+    div.appendChild(ctaAncher);
     li.appendChild(paraURL);
     li.appendChild(div);
     document.getElementById("shorten-rul").append(li);
