@@ -8,10 +8,9 @@ document
 document.querySelector(".shorten-btn").addEventListener("click", (event) => {
   shortenUrlInput = document.querySelector(".shorten-input").value;
   document.querySelector(".shorten-input").value = "";
-
   getShortenUrl(shortenUrlInput);
 });
-const getShortenUrl = async (shorten_url) => {
+const getShortenUrl = async (shortenUrlInput) => {
   try {
     const apiUrl = BASE_URL + SHORTEN_ENDPOINT + shorten_url;
     const response = await axios.get(apiUrl);
@@ -22,6 +21,7 @@ const getShortenUrl = async (shorten_url) => {
     document.querySelector(".search-input").classList.add("error");
     console.log("There was some error processing your request");
   }
+  document.querySelector(".shorten-input").value = "";
 };
 
 const printShortenTable = async (apiUrl, result) => {
@@ -57,6 +57,7 @@ const renderAvailableUrl = () => {
     const ctaAncher = document.createElement("a");
     paraURL.innerHTML = elem.apiUrl;
     ancherHref.setAttribute("href", elem.result);
+    ancherHref.setAttribute("target", "_blank");
     ancherHref.innerHTML = elem.result;
     paraURL.appendChild(ancherHref);
     paraShortURL.appendChild(ancherHref);
